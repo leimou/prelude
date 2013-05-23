@@ -1,17 +1,16 @@
 Emacs Prelude
 =============
 
-Emacs is probably the best text editor in the world. However, the
-process of coming up with a useful Emacs configuration is long and
-difficult. It's this process that separates you from truly taking
-advantage of Emacs's power. I like to refer to this process as the
-**Prelude**. **Emacs Prelude** has the goal to ease the initial Emacs
-setup process and to provide you with a much more powerful and
-productive experience than the one you get out of the box. By using
-**Emacs Prelude** you're basically getting a *"Get me out of the
-Prelude, I just want to use Emacs"* card.
+Prelude is an Emacs distribution that aims to enhance the default
+Emacs experience.  Prelude alters a lot of the default settings,
+bundles a plethora of additional packages and adds its own core
+library to the mix. The final product offers an easy to use Emacs
+configuration for Emacs newcomers and lots of additional power for
+Emacs power users.
 
-Emacs Prelude is compatible **ONLY with GNU Emacs 24.x**.
+Prelude is compatible **ONLY with GNU Emacs 24.x**. In general you're
+advised to always run Prelude with the latest Emacs - currently
+**24.3**.
 
 ## Fast Forward
 
@@ -138,7 +137,11 @@ By default most of the modules that ship with Prelude are not loaded.
 (require 'prelude-xml)
 ```
 
-You'll need to adjust your `prelude-modules.el` file once the installation is done.
+You'll need to adjust your `prelude-modules.el` file once the
+installation is done. If you are doing a manual install then you first
+need to copy the `prelude-modules.el` available in the sample
+directory to the root of `path/to/prelude/installation` and then
+adjust that one.
 
 After you've uncommented a module you should either restart Emacs or evaluate the module
 `require` expression with <kbd>C-x C-e</kbd>.
@@ -190,21 +193,22 @@ extensions to keybindings.
 Keybinding         | Description
 -------------------|------------------------------------------------------------
 <kbd>C-M-h</kbd>   | Kill the previous word(`backward-kill-word`). (as in Bash/Zsh)
-<kbd>C-x \</kbd>   | `align-regexp`
+<kbd>C-x \\</kbd>   | `align-regexp`
 <kbd>C-+</kbd>     | Increase font size(`text-scale-increase`).
 <kbd>C--</kbd>     | Decrease font size(`text-scale-decrease`).
 <kbd>C-x O</kbd>   | Go back to previous window (the inverse of `other-window` (`C-x o`)).
 <kbd>C-x ^</kbd>   | Join two lines into one(`join-line`).
-<kbd>C-x p</kbd>   | Start `proced` (manage processes form Emacs, works only in Linux).
+<kbd>C-x p</kbd>   | Start `proced` (manage processes from Emacs; works only in Linux).
 <kbd>C-x m</kbd>   | Start `eshell`.
 <kbd>C-x M-m</kbd> | Start your default shell.
 <kbd>C-x C-m</kbd> | Alias for `M-x`.
 <kbd>C-h A</kbd>   | Run `apropos` (search in all Emacs symbols).
-<kbd>M-\</kbd>     | Run `hippie-expand` (a replacement for the default `dabbrev-expand`).
+<kbd>M-\\</kbd>     | Run `hippie-expand` (a replacement for the default `dabbrev-expand`).
 <kbd>C-x C-b</kbd> | Open `ibuffer` (a replacement for the default `buffer-list`).
 <kbd>F12</kbd>     | Toggle the Emacs menu bar.
 <kbd>C-x g</kbd>   | Open Magit's status buffer.
 <kbd>C-=</kbd>     | Run `expand-region` (incremental text selection).
+<kbd>C-a</kbd>     | Run `prelude-move-beginning-of-line`. Read [this](http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/) for details.
 
 #### Prelude Mode
 
@@ -212,12 +216,13 @@ Keybinding         | Description
 -------------------|------------------------------------------------------------
 <kbd>C-c o</kbd>   | Open the currently visited file with an external program.
 <kbd>C-c g</kbd>   | Search in Google for the thing under point (or an interactive query).
+<kbd>C-S-RET</kbd> | Insert an empty line above the current line and indent it properly
 <kbd>S-RET</kbd>   | Insert an empty line and indent it properly (as in most IDEs).
 <kbd>C-S-up</kbd>  | Move the current line up.
 <kbd>C-S-down</kbd> | Move the current line down.
 <kbd>C-c n</kbd> | Fix indentation in buffer and strip whitespace.
-<kbd>C-c f</kbd> | Open recently visitted file.
-<kbd>C-M-\</kbd> | Indent region (if selected) or the entire buffer.
+<kbd>C-c f</kbd> | Open recently visited file.
+<kbd>C-M-\\</kbd> | Indent region (if selected) or the entire buffer.
 <kbd>C-c u</kbd> | Open URL in your default browser.
 <kbd>C-c e</kbd> | Eval a bit of Emacs Lisp code and replace it with its result.
 <kbd>C-c s</kbd> | Swap two active windows.
@@ -229,7 +234,7 @@ Keybinding         | Description
 
 #### Projectile
 
-Here's a list of functionality provided by [Projectile](https://github.com/bbatsov/prelude):
+Here's a list of functionality provided by [Projectile](https://github.com/bbatsov/projectile):
 
 Keybinding         | Description
 -------------------|------------------------------------------------------------
@@ -254,7 +259,34 @@ If you ever forget any of Projectile's keybindings just do a:
 
 <kbd>C-c p C-h</kbd>
 
-### Automatic package installation
+#### Key-chords
+
+Keybinding         | Description
+-------------------|----------------------------------------------
+<kbd>jj</kbd>      | Jump to the beginning of a word(`ace-jump-word-mode`)
+<kbd>jk</kbd>      | Jump to a character(`ace-jump-char-mode`)
+<kbd>jl</kbd>      | Jump to the beginning of a line(`ace-jump-line-mode`)
+<kbd>JJ</kbd>      | Jump back to previous buffer(`prelude-switch-to-previous-buffer`)
+<kbd>uu</kbd>      | View edits as a tree(`undo-tree-visualize`)
+
+##### Disabling key-chords
+
+In some cases you may not want to have a key-chord that is defined by prelude,
+in which case you can disable the binding in your `personal.el` file by setting
+its command to `nil`. For example, to disable the `kk` key-chord add the
+following line:
+
+    ```lisp
+    (key-chord-define-global "jj" nil)
+    ```
+
+If you're an `evil-mode` user you'll probably do well to disable `key-chord-mode` altogether:
+
+    ```lisp
+    (key-chord-mode -1)
+    ```
+
+## Automatic package installation
 
 The default Prelude installation comes with a bare minimum of
 functionality. It will however install add-ons for various programming
@@ -315,6 +347,19 @@ personal config with the following bit of code:
 (setq prelude-whitespace nil)
 ```
 
+If you like `whitespace-mode` but prefer it to not automatically
+cleanup your file on save, you can disable that behavior by setting
+prelude-clean-whitespace-on-save to nil in your config file with:
+
+```lisp
+(setq prelude-clean-whitespace-on-save nil)
+```
+
+The prelude-clean-whitespace-on-save setting can also be set on a
+per-file or directory basis by using a file variable or a
+.dir-locals.el file.
+
+
 #### Disable flyspell-mode
 
 If you're not fond of spellchecking on the fly:
@@ -371,6 +416,17 @@ personal Emacs customization to enable them permanently:
 
 ```lisp
 (setq prelude-guru nil)
+```
+
+### Customized C-a behavior
+
+Prelude overrides `C-a` to behave as described
+[here](http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/). If
+you don't like that simply add this to your personal config:
+
+```lisp
+(global-set-key [remap move-beginning-of-line]
+                'move-beginning-of-line)
 ```
 
 ### Windows compatibility
