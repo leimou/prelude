@@ -2,20 +2,13 @@
 (add-to-list 'load-path "~/.emacs.d/personal")
 
 ;; General Settings
-(setq make-backup-files nil)        ;; Stop create backup~ files
-(setq auto-save-default nil)        ;; Stop create #autosave# files
-(fset 'yes-or-no-p 'y-or-n-p)       ;; Using y/n instead of yes/no
-(setq kill-whole-line t)               ;; Kill a whole line, including the ending '\n'.
-(setq enable-recursive-minibuffers t)  ;; Using the mini-buffer recursively.
-(setq frame-title-format "%b@%f")      ;; Buffer name @ File location
-(global-visual-line-mode 1)            ;; Have lines soft wrapped at word boundary.
-
-;; Display time
-;; (display-time-mode t)
-;; (setq display-time-24hr-format t)
-;; (setq display-time-day-and-date t)
-;; (setq display-time-use-mail-icon t)
-;; (setq display-time-interval 10)
+(setq make-backup-files nil)          ;; Stop create backup~ files
+(setq auto-save-default nil)          ;; Stop create #autosave# files
+(fset 'yes-or-no-p 'y-or-n-p)         ;; Using y/n instead of yes/no
+(setq kill-whole-line t)              ;; Kill a whole line, including the ending '\n'.
+(setq enable-recursive-minibuffers t) ;; Using the mini-buffer recursively.
+(setq frame-title-format "%b@%f")     ;; Buffer name @ File location
+(global-visual-line-mode 1)           ;; Have lines soft wrapped at word boundary.
 
 ;; Org mode
 ;; http://stackoverflow.com/a/10643120/504646
@@ -57,16 +50,6 @@
 ;; CC-mode customization
 ;; ================================================================
 (require 'cc-mode)
-;; (setq c-basic-offset 2)
-;; (c-set-offset 'substatement-open 0)
-
-
-;; (require 'google-c-style)
-;; Key bindings:
-;; ----------------------------------------------------------------
-;; C-c C-v: Uncomment region
-;; Return(C-m): Ident new line
-;; ----------------------------------------------------------------
 
 ;; Max 80 cols per line, indent by two spaces, no tabs.
 ;; Apparently, this does not affect tabs in Makefiles.
@@ -133,33 +116,12 @@
 (add-hook 'asm-mode-hook 'linum-mode)
 (add-hook 'ld-script-mode-hook 'linum-mode)
 
-;; Enable spell checking when writing programs.
-;; (add-hook 'c-mode-hook        'flyspell-prog-mode 1)
-;; (add-hook 'c++-mode-hook      'flyspell-prog-mode 1)
-;; (add-hook 'cperl-mode-hook    'flyspell-prog-mode 1)
-;; (add-hook 'makefile-mode-hook 'flyspell-prog-mode 1)
-;; (add-hook 'python-mode-hook   'flyspell-prog-mode 1)
-;; (add-hook 'sh-mode-hook       'flyspell-prog-mode 1)
-
 ;; Rebox comments
 (autoload 'rebox-comment "rebox" nil t)
 (autoload 'rebox-region "rebox" nil t)
 
-;; Enable auto complete mode by default
-;; (add-hook 'c-mode-common-hook 'auto-complete-mode)
-
 ;; Enable orgtbl minor mode in c-mode and text-mode
 (add-hook 'c-mode-common-hook 'turn-on-orgtbl)
-
-;; ;; CEDET
-;; (add-to-list 'load-path "~/.emacs.d/cedet-1.0pre7/common/")
-;; (require 'cedet)
-
-;; (semantic-load-enable-minimum-features)
-;; (semantic-load-enable-code-helpers)
-;; ;; (semantic-load-enable-gaudy-code-helpers)
-;; ;; (semantic-load-enable-excessive-code-helpers)
-;; (semantic-load-enable-semantic-debugging-helpers)
 
 ;; Win-switch
 (win-switch-setup-keys-ijkl "\C-xo")
@@ -169,13 +131,8 @@
   (define-key gud-mode-map (kbd "<f5>") 'gdb-many-windows))
 (add-hook 'gdb-mode-hook 'gud-key-customizations)
 
-;; ;; ido-mode
-;; (require 'ido)
-;; (ido-mode t)
-
 ;; General Settings
 ;; ================================================================
-
 (setq user-mail-address "lei.mou@hengjiatech.com")
 (setq user-full-name "Lei Mou")
 
