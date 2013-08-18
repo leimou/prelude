@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: hint
+# key: hint
+# --
+hint.ai_flags     = ${1:0};
+hint.ai_family    = ${2:0};
+hint.ai_socktype  = ${3:SOCK_STREAM};
+hint.ai_protocol  = ${4:0};
+hint.ai_addrlen   = ${5:0};
+hint.ai_canonname = ${6:NULL};
+hint.ai_addr      = ${7:NULL};
+hint.ai_next      = ${8:NEXT};
