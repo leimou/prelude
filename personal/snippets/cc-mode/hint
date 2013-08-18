@@ -9,5 +9,5 @@ hint.ai_protocol  = ${4:0};
 hint.ai_addrlen   = ${5:0};
 hint.ai_canonname = ${6:NULL};
 hint.ai_addr      = ${7:NULL};
-hint.ai_next      = ${8:NEXT};
+hint.ai_next      = ${8:NULL};
 $0

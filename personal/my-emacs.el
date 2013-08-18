@@ -1,7 +1,9 @@
 ;; Load Paths
+;; -----------------------------------------------------------------------------
 (add-to-list 'load-path "~/.emacs.d/personal")
 
 ;; General Settings
+;; -----------------------------------------------------------------------------
 (setq make-backup-files nil)          ;; Stop create backup~ files
 (setq auto-save-default nil)          ;; Stop create #autosave# files
 (fset 'yes-or-no-p 'y-or-n-p)         ;; Using y/n instead of yes/no
@@ -10,12 +12,31 @@
 (setq frame-title-format "%b@%f")     ;; Buffer name @ File location
 (global-visual-line-mode 1)           ;; Have lines soft wrapped at word boundary.
 
-;; Org mode
-;; http://stackoverflow.com/a/10643120/504646
+;; Yasnippet Settings
+;; -----------------------------------------------------------------------------
+;; Add yasnippet to prelude's required package list.
+(prelude-require-package 'yasnippet)
+
+(defvar personal-snippets-dir (expand-file-name "snippets" prelude-personal-dir)
+  "This folder houses additional yasnippet bundles added by the users.")
+
+;; load yasnippet
+(require 'yasnippet)
+(add-to-list 'yas-snippet-dirs personal-snippets-dir)
+(yas-global-mode 1)
+
+;; term-mode does not play well with yasnippet
+(add-hook 'term-mode-hook (lambda ()
+                           (yas-minor-mode -1)))
+
+;; Org mode: http://stackoverflow.com/a/10643120/504646
+;; -----------------------------------------------------------------------------
 (setq org-src-fontify-natively t)
+;; -----------------------------------------------------------------------------
 
 ;; Toggle window dedication
 ;; http://stackoverflow.com/questions/43765/pin-emacs-buffers-to-windows-for-cscope
+;; -----------------------------------------------------------------------------
 (defun toggle-window-dedicated ()
 "Toggle whether the current active window is dedicated or not"
 (interactive)
