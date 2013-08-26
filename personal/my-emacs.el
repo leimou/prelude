@@ -36,8 +36,6 @@
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/personal/auto-complete/ac-dict")
 (ac-config-default)
 (ac-set-trigger-key "TAB")
-;; (define-key ac-completing-map (kbd "C-n") 'ac-next)
-;; (define-key ac-completing-map (kbd "C-p") 'ac-previous)
 (define-key ac-completing-map (kbd "RET") 'nil)
 (define-key ac-completing-map (kbd "M-j") 'ac-complete)
 (set-default 'ac-sources
@@ -50,7 +48,18 @@
                ac-source-files-in-current-dir
                ac-source-filename))
 
+;; Auto complete clang async
+;; -----------------------------------------------------------------------------
 (require 'auto-complete-clang-async)
+
+(setq ac-clang-cflags
+      (split-string 
+       "/usr/lib/gcc/i686-linux-gnu/4.6/include
+/usr/local/include
+/usr/lib/gcc/i686-linux-gnu/4.6/include-fixed
+/usr/include/i386-linux-gnu
+/usr/include
+"))
 
 (defun ac-cc-mode-setup ()
   (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
