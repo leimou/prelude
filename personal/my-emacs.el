@@ -1,6 +1,7 @@
 ;; Load Paths
 ;; -----------------------------------------------------------------------------
 (add-to-list 'load-path "~/.emacs.d/personal")
+(add-to-list 'load-path "~/.emacs.d/personal/auto-complete")
 
 ;; General Settings
 ;; -----------------------------------------------------------------------------
@@ -27,7 +28,42 @@
 
 ;; term-mode does not play well with yasnippet
 (add-hook 'term-mode-hook (lambda ()
-                           (yas-minor-mode -1)))
+                            (yas-minor-mode -1)))
+
+;; Clang autocomplete
+;; -----------------------------------------------------------------------------
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/personal/auto-complete/ac-dict")
+(ac-config-default)
+(ac-set-trigger-key "TAB")
+;; (define-key ac-completing-map (kbd "C-n") 'ac-next)
+;; (define-key ac-completing-map (kbd "C-p") 'ac-previous)
+(define-key ac-completing-map (kbd "RET") 'nil)
+(define-key ac-completing-map (kbd "M-j") 'ac-complete)
+(set-default 'ac-sources
+             '(ac-source-semantic
+               ac-source-yasnippet
+               ac-source-abbrev
+               ac-source-words-in-buffer
+               ac-source-words-in-all-buffer
+               ac-source-imenu
+               ac-source-files-in-current-dir
+               ac-source-filename))
+
+(require 'auto-complete-clang-async)
+
+(defun ac-cc-mode-setup ()
+  (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
+  (setq ac-sources '(ac-source-clang-async))
+  (ac-clang-launch-completion-process)
+  )
+
+(defun my-ac-config ()
+  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+  (global-auto-complete-mode t))
+
+(my-ac-config)
 
 ;; Org mode: http://stackoverflow.com/a/10643120/504646
 ;; -----------------------------------------------------------------------------
@@ -38,15 +74,15 @@
 ;; http://stackoverflow.com/questions/43765/pin-emacs-buffers-to-windows-for-cscope
 ;; -----------------------------------------------------------------------------
 (defun toggle-window-dedicated ()
-"Toggle whether the current active window is dedicated or not"
-(interactive)
-(message
- (if (let (window (get-buffer-window (current-buffer)))
-       (set-window-dedicated-p window
-        (not (window-dedicated-p window))))
-    "Window '%s' is dedicated"
-    "Window '%s' is normal")
- (current-buffer)))
+  "Toggle whether the current active window is dedicated or not"
+  (interactive)
+  (message
+   (if (let (window (get-buffer-window (current-buffer)))
+         (set-window-dedicated-p window
+                                 (not (window-dedicated-p window))))
+       "Window '%s' is dedicated"
+     "Window '%s' is normal")
+   (current-buffer)))
 (global-set-key (kbd "<f11>") 'toggle-window-dedicated)
 
 (require 'llvm-mode)
@@ -75,10 +111,10 @@
 ;; Max 80 cols per line, indent by two spaces, no tabs.
 ;; Apparently, this does not affect tabs in Makefiles.
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(c++-indent-level 2)
  '(c-basic-offset 2)
  '(fill-column 80)
@@ -88,34 +124,34 @@
 ;; their names will automatically set to the llvm.org coding style.
 (c-add-style "llvm.org"
              '((fill-column . 80)
-           (c++-indent-level . 2)
-           (c-basic-offset . 2)
-           (indent-tabs-mode . nil)
+               (c++-indent-level . 2)
+               (c-basic-offset . 2)
+               (indent-tabs-mode . nil)
                (c-offsets-alist . ((innamespace 0)))))
 
 (add-hook 'c-mode-hook
-      (function
-       (lambda nil
-         (if (string-match "llvm" buffer-file-name)
-         (progn
-           (c-set-style "llvm.org")
-           )
-           ))))
+          (function
+           (lambda nil
+             (if (string-match "llvm" buffer-file-name)
+                 (progn
+                   (c-set-style "llvm.org")
+                   )
+               ))))
 
 (add-hook 'c++-mode-hook
-      (function
-       (lambda nil
-         (if (string-match "llvm" buffer-file-name)
-         (progn
-           (c-set-style "llvm.org")
-           )
-           ))))
+          (function
+           (lambda nil
+             (if (string-match "llvm" buffer-file-name)
+                 (progn
+                   (c-set-style "llvm.org")
+                   )
+               ))))
 
 (defun my-c-initialization-hook ()
   ;; (define-key c-mode-base-map "\C-c\C-v" 'uncomment-region)
   (define-key c-mode-base-map "\C-m" 'c-context-line-break)
   (define-key c-mode-base-map "\C-c\C-g" 'goto-line)
-;;  (define-key c-mode-base-map "\M-/" 'ac-complete-gccsense)
+  (define-key c-mode-base-map "\M-/" 'auto-complete)
   (define-key c-mode-base-map [f6] 'semantic-ia-fast-jump))
 (add-hook 'c-initialization-hook 'my-c-initialization-hook)
 
