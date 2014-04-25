@@ -32,47 +32,47 @@
 
 ;; Clang autocomplete
 ;; -----------------------------------------------------------------------------
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/personal/auto-complete/ac-dict")
-(ac-config-default)
-(define-key ac-completing-map (kbd "RET") 'nil)
-(define-key ac-completing-map (kbd "TAB") 'ac-complete)
-(set-default 'ac-sources
-             '(ac-source-semantic
-               ac-source-yasnippet
-               ac-source-abbrev
-               ac-source-words-in-buffer
-               ac-source-words-in-all-buffer
-               ac-source-imenu
-               ac-source-files-in-current-dir
-               ac-source-filename))
+;; (require 'auto-complete-config)
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/personal/auto-complete/ac-dict")
+;; (ac-config-default)
+;; (define-key ac-completing-map (kbd "RET") 'nil)
+;; (define-key ac-completing-map (kbd "TAB") 'ac-complete)
+;; (set-default 'ac-sources
+;;              '(ac-source-semantic
+;;                ac-source-yasnippet
+;;                ac-source-abbrev
+;;                ac-source-words-in-buffer
+;;                ac-source-words-in-all-buffer
+;;                ac-source-imenu
+;;                ac-source-files-in-current-dir
+;;                ac-source-filename))
 
 ;; Auto complete clang async
 ;; -----------------------------------------------------------------------------
-(require 'auto-complete-clang-async)
+;; (require 'auto-complete-clang-async)
 
-(setq ac-clang-cflags
-      (mapcar (lambda (item)(concat "-I" item))
-      (split-string 
-       "/usr/lib/gcc/i686-linux-gnu/4.6/include
-/usr/local/include
-/usr/lib/gcc/i686-linux-gnu/4.6/include-fixed
-/usr/include/i386-linux-gnu
-/usr/include
-")))
+;; (setq ac-clang-cflags
+;;       (mapcar (lambda (item)(concat "-I" item))
+;;       (split-string 
+;;        "/usr/lib/gcc/i686-linux-gnu/4.6/include
+;; /usr/local/include
+;; /usr/lib/gcc/i686-linux-gnu/4.6/include-fixed
+;; /usr/include/i386-linux-gnu
+;; /usr/include
+;; ")))
 
-(defun ac-cc-mode-setup ()
-  (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
-  (setq ac-sources '(ac-source-clang-async))
-  (ac-clang-launch-completion-process)
-  )
+;; (defun ac-cc-mode-setup ()
+;;   (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
+;;   (setq ac-sources '(ac-source-clang-async))
+;;   (ac-clang-launch-completion-process)
+;;   )
 
-(defun my-ac-config ()
-  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
-  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-  (global-auto-complete-mode t))
+;; (defun my-ac-config ()
+;;   (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+;;   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+;;   (global-auto-complete-mode t))
 
-(my-ac-config)
+;; (my-ac-config)
 
 ;; Org mode: http://stackoverflow.com/a/10643120/504646
 ;; -----------------------------------------------------------------------------
