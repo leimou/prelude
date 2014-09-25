@@ -35,7 +35,7 @@
 (require 'prelude-programming)
 
 (defun prelude-c-mode-common-defaults ()
-  (setq indent-tabs-mode nil)
+  (setq indent-tabs-mode t)
   (setq c-basic-offset 2)
   (c-set-offset 'substatement-open 0))
 
