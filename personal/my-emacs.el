@@ -126,8 +126,9 @@
  ;; If there is more than one, they won't work right.
  '(c++-indent-level 2)
  '(c-basic-offset 2)
+ '(tab-width 2)
  '(fill-column 80)
- '(indent-tabs-mode nil))
+ '(indent-tabs-mode t))
 
 ;; Alternative to setting the global style.  Only files with "llvm" in
 ;; their names will automatically set to the llvm.org coding style.
@@ -135,7 +136,8 @@
              '((fill-column . 80)
                (c++-indent-level . 2)
                (c-basic-offset . 2)
-               (indent-tabs-mode . nil)
+							 (tab-width . 2)
+               (indent-tabs-mode . t)
                (c-offsets-alist . ((innamespace 0)))))
 
 (add-hook 'c-mode-hook
@@ -212,11 +214,3 @@
          (save-buffer (get-file-buffer dot-emacs)))
     (load-file dot-emacs))
   (message "Re-initialized!"))
-
-;; load-notes
-(defun load-notes ()
-  "Load necessary note files from different locations"
-  (interactive)
-  (let ((notes "~/Workspace/Notes/c-expert-programming.org"))
-    (find-file notes))
-  (message "Notes loaded!"))
