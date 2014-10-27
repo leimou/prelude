@@ -18,6 +18,9 @@
 ;; Add yasnippet to prelude's required package list.
 (prelude-require-package 'yasnippet)
 
+;; Don't clean whitespace upon save.
+(setq prelude-clean-whitespace-on-save nil)
+
 (defvar personal-snippets-dir (expand-file-name "snippets" prelude-personal-dir)
   "This folder houses additional yasnippet bundles added by the users.")
 
@@ -53,7 +56,7 @@
 
 ;; (setq ac-clang-cflags
 ;;       (mapcar (lambda (item)(concat "-I" item))
-;;       (split-string 
+;;       (split-string
 ;;        "/usr/lib/gcc/i686-linux-gnu/4.6/include
 ;; /usr/local/include
 ;; /usr/lib/gcc/i686-linux-gnu/4.6/include-fixed
