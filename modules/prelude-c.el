@@ -1,6 +1,6 @@
 ;;; prelude-c.el --- Emacs Prelude: cc-mode configuration.
 ;;
-;; Copyright © 2011-2013 Bozhidar Batsov
+;; Copyright © 2011-2014 Bozhidar Batsov
 ;;
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/prelude
@@ -35,6 +35,7 @@
 (require 'prelude-programming)
 
 (defun prelude-c-mode-common-defaults ()
+
   (setq indent-tabs-mode t)
   (setq c-basic-offset 2)
   (c-set-offset 'substatement-open 0))
