@@ -217,3 +217,5 @@
          (save-buffer (get-file-buffer dot-emacs)))
     (load-file dot-emacs))
   (message "Re-initialized!"))
+
+(require 'protobuf-mode)
