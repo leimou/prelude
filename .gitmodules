@@ -1,3 +1,9 @@
+[submodule "personal/go-mode"]
+	path = personal/go-mode
+	url = https://github.com/dominikh/go-mode.el
+[submodule "personal/go-code"]
+	path = personal/go-code
+	url = https://github.com/nsf/gocode.git
 [submodule "personal/auto-complete"]
 	path = personal/auto-complete
 	url = https://github.com/auto-complete/auto-complete.git

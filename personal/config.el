@@ -2,6 +2,8 @@
 ;; -----------------------------------------------------------------------------
 (add-to-list 'load-path "~/.emacs.d/personal")
 (add-to-list 'load-path "~/.emacs.d/personal/auto-complete")
+(add-to-list 'load-path "~/.emacs.d/personal/go-mode")
+(add-to-list 'load-path "~/.emacs.d/personal/go-code/emacs")
 
 ;; General Settings
 ;; -----------------------------------------------------------------------------
@@ -13,25 +15,35 @@
 (setq frame-title-format "%b@%f")     ;; Buffer name @ File location
 (global-visual-line-mode 1)           ;; Have lines soft wrapped at word boundary.
 
-;; Yasnippet Settings
+;; Auto-complete
 ;; -----------------------------------------------------------------------------
-;; Add yasnippet to prelude's required package list.
-(prelude-require-package 'yasnippet)
+(prelude-require-package 'popup)
 
-;; Don't clean whitespace upon save.
-(setq prelude-clean-whitespace-on-save nil)
+;; Go Mode
+;; -----------------------------------------------------------------------------
+(require 'go-mode-autoloads)
+(require 'go-autocomplete)
+(require 'auto-complete-config)
+(ac-config-default)
+;; ;; Yasnippet Settings
+;; ;; -----------------------------------------------------------------------------
+;; ;; Add yasnippet to prelude's required package list.
+;; (prelude-require-package 'yasnippet)
 
-(defvar personal-snippets-dir (expand-file-name "snippets" prelude-personal-dir)
-  "This folder houses additional yasnippet bundles added by the users.")
+;; ;; Don't clean whitespace upon save.
+;; (setq prelude-clean-whitespace-on-save nil)
 
-;; load yasnippet
-(require 'yasnippet)
-(add-to-list 'yas-snippet-dirs personal-snippets-dir)
-(yas-global-mode 1)
+;; (defvar personal-snippets-dir (expand-file-name "snippets" prelude-personal-dir)
+;;   "This folder houses additional yasnippet bundles added by the users.")
 
-;; term-mode does not play well with yasnippet
-(add-hook 'term-mode-hook (lambda ()
-                            (yas-minor-mode -1)))
+;; ;; load yasnippet
+;; (require 'yasnippet)
+;; (add-to-list 'yas-snippet-dirs personal-snippets-dir)
+;; (yas-global-mode 1)
+
+;; ;; term-mode does not play well with yasnippet
+;; (add-hook 'term-mode-hook (lambda ()
+;;                             (yas-minor-mode -1)))
 
 ;; Clang autocomplete
 ;; -----------------------------------------------------------------------------
