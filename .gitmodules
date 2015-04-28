@@ -7,3 +7,9 @@
 [submodule "personal/auto-complete"]
 	path = personal/auto-complete
 	url = https://github.com/auto-complete/auto-complete.git
+[submodule "personal/popup"]
+	path = personal/popup
+	url = https://github.com/auto-complete/popup-el.git
+[submodule "personal/fuzzy"]
+	path = personal/fuzzy
+	url = https://github.com/auto-complete/fuzzy-el.git
