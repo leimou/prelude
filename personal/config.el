@@ -31,7 +31,7 @@
 (prelude-require-package 'yasnippet)
 
 ;; Don't clean whitespace upon save.
-(setq prelude-clean-whitespace-on-save nil)
+;; (setq prelude-clean-whitespace-on-save nil)
 
 (defvar personal-snippets-dir (expand-file-name "snippets" prelude-personal-dir)
   "This folder houses additional yasnippet bundles added by the users.")
@@ -97,20 +97,20 @@
 ;; Toggle window dedication
 ;; http://stackoverflow.com/questions/43765/pin-emacs-buffers-to-windows-for-cscope
 ;; -----------------------------------------------------------------------------
-(defun toggle-window-dedicated ()
-  "Toggle whether the current active window is dedicated or not"
-  (interactive)
-  (message
-   (if (let (window (get-buffer-window (current-buffer)))
-         (set-window-dedicated-p window
-                                 (not (window-dedicated-p window))))
-       "Window '%s' is dedicated"
-     "Window '%s' is normal")
-   (current-buffer)))
-(global-set-key (kbd "<f11>") 'toggle-window-dedicated)
+;; (defun toggle-window-dedicated ()
+;;   "Toggle whether the current active window is dedicated or not"
+;;   (interactive)
+;;   (message
+;;    (if (let (window (get-buffer-window (current-buffer)))
+;;          (set-window-dedicated-p window
+;;                                  (not (window-dedicated-p window))))
+;;        "Window '%s' is dedicated"
+;;      "Window '%s' is normal")
+;;    (current-buffer)))
+;; (global-set-key (kbd "<f11>") 'toggle-window-dedicated)
 
-(require 'llvm-mode)
-(require 'tablegen-mode)
+;; (require 'llvm-mode)
+;; (require 'tablegen-mode)
 (require 'xcscope)    ;; Cscope
 (require 'win-switch) ;; Win-switch
 ;; (require 'doxymacs)   ;; Using doxygen style comments within emacs.
