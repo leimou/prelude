@@ -7,6 +7,8 @@
 (add-to-list 'load-path "~/.emacs.d/personal/popup")
 (add-to-list 'load-path "~/.emacs.d/personal/fuzzy")
 
+;; Open header file in c++-mode
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
 ;; General Settings
 ;; -----------------------------------------------------------------------------
@@ -17,6 +19,11 @@
 (setq enable-recursive-minibuffers t) ;; Using the mini-buffer recursively.
 (setq frame-title-format "%b@%f")     ;; Buffer name @ File location
 (global-visual-line-mode 1)           ;; Have lines soft wrapped at word boundary.
+
+
+(require 'protobuf-mode)
+(require 'xcscope)    ;; Cscope
+(require 'win-switch) ;; Win-switch
 
 ;; Go Mode
 ;; -----------------------------------------------------------------------------
@@ -111,8 +118,6 @@
 
 ;; (require 'llvm-mode)
 ;; (require 'tablegen-mode)
-(require 'xcscope)    ;; Cscope
-(require 'win-switch) ;; Win-switch
 ;; (require 'doxymacs)   ;; Using doxygen style comments within emacs.
 ;; (defun my-doxymacs-font-lock-hook ()
 ;;   (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
@@ -229,5 +234,3 @@
          (save-buffer (get-file-buffer dot-emacs)))
     (load-file dot-emacs))
   (message "Re-initialized!"))
-
-(require 'protobuf-mode)
