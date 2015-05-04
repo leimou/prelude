@@ -32,6 +32,21 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
+;; goimport and go oracle integration.
+(load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
+(defun my-go-mode-hook ()
+	;; Use goimports instand of go-fmt
+	(setq gofmt-command "goimports")
+	;; Call gofmt before saving
+	(add-hook 'before-save-hook 'gofmt-before-save)
+	;; Customize compile command to run go build
+	(if (not (string-match "go" compile-command))
+			(set (make-local-variable 'compile-command)
+					 "go generate && go build -v"))
+	;; Godef jump key binding
+	(local-set-key (kbd "M-.") 'godef-jump))
+(add-hook 'go-mode-hook 'my-go-mode-hook)
+
 ;; Yasnippet Settings
 ;; -----------------------------------------------------------------------------
 ;; Add yasnippet to prelude's required package list.
