@@ -44,7 +44,9 @@
 			(set (make-local-variable 'compile-command)
 					 "go generate && go build -v"))
 	;; Godef jump key binding
-	(local-set-key (kbd "M-.") 'godef-jump))
+	(local-set-key (kbd "M-.") 'godef-jump)
+	(local-set-key (kbd "M-,") 'pop-tag-mark))
+
 (add-hook 'go-mode-hook 'my-go-mode-hook)
 
 ;; Yasnippet Settings
