@@ -218,6 +218,7 @@
 (add-hook 'org-mode-hook 'linum-mode)
 (add-hook 'asm-mode-hook 'linum-mode)
 (add-hook 'ld-script-mode-hook 'linum-mode)
+(add-hook 'go-mode-hook 'linum-mode)
 
 ;; Rebox comments
 (autoload 'rebox-comment "rebox" nil t)
