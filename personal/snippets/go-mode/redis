@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: nf
+# key: nf
+# --
+func (${1:*Type}) ${2:Func}(${3:args}) (${4:retval}) {
+	 $0
+}
