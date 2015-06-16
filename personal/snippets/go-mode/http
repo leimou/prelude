@@ -1,0 +1,7 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: hf
+# key: hf
+# --
+func ${1:Func}(w http.ResponseWriter, r *http.Request) {
+	 $0
+}
