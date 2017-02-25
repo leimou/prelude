@@ -2,13 +2,10 @@
 ;; -----------------------------------------------------------------------------
 (add-to-list 'load-path "~/.emacs.d/personal")
 (add-to-list 'load-path "~/.emacs.d/personal/auto-complete")
-(add-to-list 'load-path "~/.emacs.d/personal/go-mode")
-(add-to-list 'load-path "~/.emacs.d/personal/go-code/emacs")
-(add-to-list 'load-path "~/.emacs.d/personal/popup")
-(add-to-list 'load-path "~/.emacs.d/personal/fuzzy")
 
 ;; Open header file in c++-mode
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.ipp\\'" . c++-mode))
 
 ;; General Settings
 ;; -----------------------------------------------------------------------------
@@ -24,30 +21,9 @@
 (require 'protobuf-mode)
 (require 'xcscope)    ;; Cscope
 (require 'win-switch) ;; Win-switch
+(require 'prelude-helm-everywhere)
 
-;; Go Mode
-;; -----------------------------------------------------------------------------
-(require 'go-mode-autoloads)
-(require 'go-autocomplete)
-(require 'auto-complete-config)
 (ac-config-default)
-
-;; goimport and go oracle integration.
-(load-file "$GOPATH/src/golang.org/x/tools/cmd/oracle/oracle.el")
-(defun my-go-mode-hook ()
-	;; Use goimports instand of go-fmt
-	(setq gofmt-command "goimports")
-	;; Call gofmt before saving
-	(add-hook 'before-save-hook 'gofmt-before-save)
-	;; Customize compile command to run go build
-	(if (not (string-match "go" compile-command))
-			(set (make-local-variable 'compile-command)
-					 "go generate && go build -v"))
-	;; Godef jump key binding
-	(local-set-key (kbd "M-.") 'godef-jump)
-	(local-set-key (kbd "M-,") 'pop-tag-mark))
-
-(add-hook 'go-mode-hook 'my-go-mode-hook)
 
 ;; Yasnippet Settings
 ;; -----------------------------------------------------------------------------
@@ -55,7 +31,7 @@
 (prelude-require-package 'yasnippet)
 
 ;; Don't clean whitespace upon save.
-;; (setq prelude-clean-whitespace-on-save nil)
+(setq prelude-clean-whitespace-on-save nil)
 
 (defvar personal-snippets-dir (expand-file-name "snippets" prelude-personal-dir)
   "This folder houses additional yasnippet bundles added by the users.")
@@ -69,86 +45,10 @@
 (add-hook 'term-mode-hook (lambda ()
                             (yas-minor-mode -1)))
 
-;; Clang autocomplete
-;; -----------------------------------------------------------------------------
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/personal/auto-complete/ac-dict")
-;; (ac-config-default)
-;; (define-key ac-completing-map (kbd "RET") 'nil)
-;; (define-key ac-completing-map (kbd "TAB") 'ac-complete)
-;; (set-default 'ac-sources
-;;              '(ac-source-semantic
-;;                ac-source-yasnippet
-;;                ac-source-abbrev
-;;                ac-source-words-in-buffer
-;;                ac-source-words-in-all-buffer
-;;                ac-source-imenu
-;;                ac-source-files-in-current-dir
-;;                ac-source-filename))
-
-;; Auto complete clang async
-;; -----------------------------------------------------------------------------
-;; (require 'auto-complete-clang-async)
-
-;; (setq ac-clang-cflags
-;;       (mapcar (lambda (item)(concat "-I" item))
-;;       (split-string
-;;        "/usr/lib/gcc/i686-linux-gnu/4.6/include
-;; /usr/local/include
-;; /usr/lib/gcc/i686-linux-gnu/4.6/include-fixed
-;; /usr/include/i386-linux-gnu
-;; /usr/include
-;; ")))
-
-;; (defun ac-cc-mode-setup ()
-;;   (setq ac-clang-complete-executable "~/.emacs.d/clang-complete")
-;;   (setq ac-sources '(ac-source-clang-async))
-;;   (ac-clang-launch-completion-process)
-;;   )
-
-;; (defun my-ac-config ()
-;;   (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
-;;   (add-hook 'auto-complete-mode-hook 'ac-common-setup)
-;;   (global-auto-complete-mode t))
-
-;; (my-ac-config)
-
 ;; Org mode: http://stackoverflow.com/a/10643120/504646
 ;; -----------------------------------------------------------------------------
 (setq org-src-fontify-natively t)
 ;; -----------------------------------------------------------------------------
-
-;; Toggle window dedication
-;; http://stackoverflow.com/questions/43765/pin-emacs-buffers-to-windows-for-cscope
-;; -----------------------------------------------------------------------------
-;; (defun toggle-window-dedicated ()
-;;   "Toggle whether the current active window is dedicated or not"
-;;   (interactive)
-;;   (message
-;;    (if (let (window (get-buffer-window (current-buffer)))
-;;          (set-window-dedicated-p window
-;;                                  (not (window-dedicated-p window))))
-;;        "Window '%s' is dedicated"
-;;      "Window '%s' is normal")
-;;    (current-buffer)))
-;; (global-set-key (kbd "<f11>") 'toggle-window-dedicated)
-
-;; (require 'llvm-mode)
-;; (require 'tablegen-mode)
-;; (require 'doxymacs)   ;; Using doxygen style comments within emacs.
-;; (defun my-doxymacs-font-lock-hook ()
-;;   (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
-;;       (doxymacs-font-lock)))
-;; (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
-;; Doxygen default bindings:
-;; C-c d ? will look up documentation for the symbol under the point.
-;; C-c d r will rescan your Doxygen tags file.
-;; C-c d f will insert a Doxygen comment for the next function.
-;; C-c d i will insert a Doxygen comment for the current file.
-;; C-c d ; will insert a Doxygen comment for a member variable on the current line (like M-;).
-;; C-c d m will insert a blank multi-line Doxygen comment.
-;; C-c d s will insert a blank single-line Doxygen comment.
-;; C-c d @ will insert grouping comments around the current region.
 
 ;; CC-mode customization
 ;; ================================================================
@@ -206,21 +106,7 @@
 (defun c-key-customization ()
   (define-key c-mode-base-map "\M-q" 'rebox-comment))
 
-;; (add-hook 'c-mode-common-hook 'google-set-c-style)
-;; (add-hook 'c-mode-common-hook 'google-make-newline-indent)
-;; (add-hook 'c-mode-common-hook 'c-key-customization)
-;; (add-hook 'c-mode-common-hook 'doxymacs-mode)
-
-;; Display Line Number by default in the following modes
-(add-hook 'c-mode-common-hook 'linum-mode)
-(add-hook 'emacs-lisp-mode-hook 'linum-mode)
-(add-hook 'fundamental-mode 'linum-mode)
-(add-hook 'tablegen-mode-hook 'linum-mode)
-(add-hook 'llvm-mode-hook 'linum-mode)
-(add-hook 'org-mode-hook 'linum-mode)
-(add-hook 'asm-mode-hook 'linum-mode)
-(add-hook 'ld-script-mode-hook 'linum-mode)
-(add-hook 'go-mode-hook 'linum-mode)
+(global-linum-mode t)
 
 ;; Rebox comments
 (autoload 'rebox-comment "rebox" nil t)
