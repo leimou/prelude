@@ -17,12 +17,11 @@
 (setq frame-title-format "%b@%f")     ;; Buffer name @ File location
 (global-visual-line-mode 1)           ;; Have lines soft wrapped at word boundary.
 
-
 (require 'protobuf-mode)
 (require 'xcscope)    ;; Cscope
 (require 'win-switch) ;; Win-switch
 (require 'prelude-helm-everywhere)
-
+(require 'auto-complete)
 (ac-config-default)
 
 ;; Yasnippet Settings
